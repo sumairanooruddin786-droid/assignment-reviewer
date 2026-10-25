@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assignment Reviewer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Figtree:wght@400;500;600&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Assignment Reviewer</h1>
+    <p>An AI marks the answer against a rubric. Anything in the middle goes to a teacher.</p>
+  </header>
+
+  <main class="layout">
+    <section class="card paper" aria-labelledby="q-h">
+      <h2 id="q-h" class="label">Question</h2>
+      <p class="question" id="question">Loading question…</p>
+      <label for="answer" class="label">Your answer</label>
+      <textarea id="answer" rows="9" maxlength="3000" placeholder="Write your answer here. Explain both ideas and give one example of each."></textarea>
+      <div class="row">
+        <span class="count" id="count">0 / 3000</span>
+        <button class="primary" id="submit" type="button">Review my answer</button>
+      </div>
+      <div class="samples">
+        <span>Fill in a sample</span>
+        <div id="samples"></div>
+      </div>
+      <p class="error" id="error" role="alert" hidden></p>
+    </section>
+
+    <section class="card sheet" id="sheet" aria-live="polite">
+      <div class="empty" id="empty">
+        <h2>Your marked answer shows up here</h2>
+        <p>Submit an answer to see the mark, the rubric breakdown and the feedback.</p>
+      </div>
+      <div id="result" hidden>
+        <div class="head">
+          <div class="mark" aria-label="Suggested score">
+            <svg viewBox="0 0 190 120" aria-hidden="true">
+              <path d="M96 8C48 6 8 28 10 62c2 34 46 52 92 50 50-2 80-26 76-58C175 22 138 6 90 10" fill="none" stroke="var(--red)" stroke-width="5" stroke-linecap="round"/>
+            </svg>
+            <span id="score">0/10</span>
+          </div>
+          <div>
+            <p class="label">Suggested score</p>
+            <p class="status" id="status"></p>
+          </div>
+        </div>
+        <ul class="rubric" id="rubric"></ul>
+        <div class="note">
+          <p class="label">Feedback</p>
+          <p id="feedback"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="card route" aria-labelledby="route-h">
+    <h2 id="route-h" class="label">How the LangGraph routed this answer</h2>
+    <svg id="flow" viewBox="0 0 760 170" role="img" aria-label="Evaluate, then teacher review if the score is 4 to 6, otherwise feedback ready">
+      <g class="edge" id="e-in"><path d="M168 85H262"/></g>
+      <g class="edge" id="e-teacher"><path d="M338 85C400 85 420 40 492 40"/><text x="372" y="26">score 4 to 6</text></g>
+      <g class="edge" id="e-finish"><path d="M338 85C400 85 420 130 492 130"/><text x="345" y="166">score 0 to 3 or 7 to 10</text></g>
+      <g class="node on" id="n-eval"><rect x="20" y="62" width="148" height="46" rx="10"/><text x="94" y="90">Evaluate</text></g>
+      <g class="node dec" id="n-dec"><path d="M300 45L338 85L300 125L262 85Z"/><text x="300" y="89">?</text></g>
+      <g class="node" id="n-teacher"><rect x="492" y="16" width="190" height="46" rx="10"/><text x="587" y="44">Teacher review</text></g>
+      <g class="node" id="n-finish"><rect x="492" y="106" width="190" height="46" rx="10"/><text x="587" y="134">Feedback ready</text></g>
+    </svg>
+  </section>
+
+  <footer class="foot">Scores are suggestions. The teacher makes the final decision. Built with LangChain, LangGraph, LangSmith and Groq.</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

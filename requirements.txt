@@ -1,0 +1,8 @@
+langchain-core
+langchain-groq
+langgraph
+langsmith
+python-dotenv
+pydantic>=2,<3
+fastapi>=0.115
+uvicorn[standard]>=0.30
